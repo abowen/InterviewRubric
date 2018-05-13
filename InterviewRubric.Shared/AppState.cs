@@ -20,6 +20,16 @@ namespace InterviewRubric.Shared
         public List<RubricQuestion> SelectedRubricQuestions;
         public List<RubricQuestion> UnselectedRubricQuestions;
 
+        public string[] Technologies = new string[]
+        {
+            ".NET",
+            "C#",
+            "JavaScript",
+            "React",
+            "CSS",
+            "Cloud"
+        };
+
         public void AddQuestion(RubricQuestion question)
         {
             RubricQuestions.Add(question);

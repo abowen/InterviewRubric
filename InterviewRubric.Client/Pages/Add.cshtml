@@ -37,9 +37,9 @@
     <div class="form-group">
         <label for="difficultyInput">Difficulty</label>
         <select id="difficultyInput" class="custom-select" bind=RubricQuestion.Difficulty>
-            <option value=@Difficulty.Easy>@Difficulty.Easy</option>
-            <option value=@Difficulty.Medium>@Difficulty.Medium</option>
-            <option value=@Difficulty.Hard>@Difficulty.Hard</option>
+            <option value=@QuestionDifficulty.Easy>@QuestionDifficulty.Easy</option>
+            <option value=@QuestionDifficulty.Medium>@QuestionDifficulty.Medium</option>
+            <option value=@QuestionDifficulty.Hard>@QuestionDifficulty.Hard</option>
         </select>
     </div>
     <button type="submit" class="btn btn-primary" onclick="@Submit">Submit</button>

@@ -24,8 +24,11 @@ namespace InterviewRubric.Server.Controllers
                 Low = "Low " + rng.Next(-20, 55),
                 Medium = Summaries[rng.Next(Summaries.Length)],
                 High = "High",
-                Difficulty = (Difficulty)rng.Next(0, 2),
-                Minutes = rng.Next(1, 3)
+                Difficulty = (QuestionDifficulty)rng.Next(0, 3),
+                Type = (QuestionType)rng.Next(0, 2),
+                Category = (QuestionCategory)rng.Next(0, 6),
+                Minutes = rng.Next(1, 3),
+                Technology = Summaries[rng.Next(Summaries.Length)] + "JS"
             });
         }
     }
