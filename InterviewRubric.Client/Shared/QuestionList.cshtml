@@ -2,7 +2,13 @@
 @using System.Linq
 @inject AppState state
 
-
+<div>
+    <button class="btn btn-primary btn-sm" onclick="@(() => FilterDifficulty())">Clear</button>
+    @foreach (var difficulty in Enum.GetValues(typeof(Difficulty)).Cast<Difficulty>())
+    {
+        <button class="btn btn-secondary btn-sm" onclick="@(() => FilterDifficulty(difficulty))">@difficulty</button>
+    }
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -16,33 +22,53 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var question in Questions)
+        @foreach (var question in FilteredQuestions)
         {
-        <tr>
-            <td>
-                <button class="btn btn-outline-primary btn-sm" 
-                        style="width:100px"
-                        onclick=@(() => UserAction(question))>@UserActionText</button>
-            </td>
-            <td>@question.Question</td>
-            <td>@question.Difficulty</td>
-            <td>@question.Minutes min(s)</td>
-            <td>@question.Low</td>
-            <td>@question.Medium</td>
-            <td>@question.High</td>
-        </tr>
+            <tr>
+                <td>
+                    <button class="btn btn-outline-primary btn-sm"
+                            style="width:100px"
+                            onclick=@(() => UserAction(question))>
+                        @UserActionText
+                    </button>
+                </td>
+                <td>@question.Question</td>
+                <td>@question.Difficulty</td>
+                <td>@question.Minutes min(s)</td>
+                <td>@question.Low</td>
+                <td>@question.Medium</td>
+                <td>@question.High</td>
+            </tr>
         }
     </tbody>
 </table>
+
 
 @functions {
     [Parameter] List<RubricQuestion> Questions { get; set; }
     [Parameter] Action<RubricQuestion> UserAction { get; set; }
     [Parameter] string UserActionText { get; set; }
 
+    List<RubricQuestion> FilteredQuestions;
+
     protected override void OnInit()
     {
         state.OnChange += StateHasChanged;
+        FilteredQuestions = Questions;
+    }
+
+    void FilterDifficulty(Difficulty? difficulty = null)
+    {
+        if (difficulty == null)
+        {
+            FilteredQuestions = Questions;
+        }
+        else
+        {
+            FilteredQuestions = Questions.Where(fq => fq.Difficulty == difficulty).ToList();
+        }
+
+        //StateHasChanged();
     }
 }
 
