@@ -22,6 +22,7 @@ else
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Add</th>
                             <th>Selected</th>
                             <th>Question</th>
                             <th>Difficulty</th>
@@ -34,21 +35,31 @@ else
                     <tbody>
                         @foreach (var question in state.RubricQuestions)
                         {
-                            <tr>
-                                <td><input type="checkbox" bind="@question.Selected" /> </td>
-                                <td>@question.Question</td>
-                                <td>@question.Difficulty</td>
-                                <td>@question.Minutes min(s)</td>
-                                <td>@question.Low</td>
-                                <td>@question.Medium</td>
-                                <td>@question.High</td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <button onclick=@(() => state.AddQuestion(question))>Add</button>
+                                <button onclick=@(() => state.RemoveQuestion(question))>Remove</button>
+                            </td>
+                            <td>@question.Question</td>
+                            <td>@question.Difficulty</td>
+                            <td>@question.Minutes min(s)</td>
+                            <td>@question.Low</td>
+                            <td>@question.Medium</td>
+                            <td>@question.High</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
             </fieldset>
         </form>
     </div>
+}
+
+@functions {
+    protected override void OnInit()
+    {
+        state.OnChange += StateHasChanged;
+    }
 }
 
 

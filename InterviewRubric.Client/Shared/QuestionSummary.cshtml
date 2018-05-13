@@ -1,7 +1,6 @@
 ﻿@using InterviewRubric.Shared
 @using System.Linq
 @inject AppState state
-
 @*Move to shared view?*@
 
 <div class="alert alert-secondary mt-6" role="alert">
@@ -14,8 +13,18 @@
         Selected : @state.SelectedRubricQuestions.Count()
     </div>
     <div>
+        Unselected : @state.UnselectedRubricQuestions.Count()
+    </div>
+    <div>
         Time : @state.SelectedRubricQuestions.Sum(r => r.Minutes) minutes
     </div>
 </div>
+
+@functions {
+    protected override void OnInit()
+    {
+        state.OnChange += StateHasChanged;
+    }
+}
 
 
