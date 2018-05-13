@@ -1,16 +1,20 @@
-﻿@page "/add"
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@page "/add"
+@inject HttpClient Http
+@inject AppState state
 
 <h1>Add Question</h1>
 
-<p>Total questions: @currentCount</p>
+<QuestionSummary />
 
 <button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
 
 @functions {
-    int currentCount = 0;
+int currentCount = 0;
 
-    void IncrementCount()
-    {
-        currentCount++;
-    }
+void IncrementCount()
+{
+    currentCount++;
+}
 }

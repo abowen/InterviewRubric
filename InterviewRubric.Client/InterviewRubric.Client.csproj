@@ -26,4 +26,8 @@
     <BlazorGenerate Remove="Pages\Questions.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <BlazorGenerate Remove="Shared\QuestionSummary.cshtml" />
+  </ItemGroup>
+
 </Project>

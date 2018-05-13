@@ -1,36 +1,32 @@
 ﻿@using InterviewRubric.Shared
-@using System.Linq
 @page "/"
 @inject HttpClient Http
 @inject AppState state
 
 <h1>Interview Rubric</h1>
 
-Welcome to the Interview Rubric generator
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
 @if (state.RubricQuestions == null)
 {
+    // TODO: Work out how to move into QuestionSummary
     <p><em>Loading...</em></p>
 }
 else
 {
-    <h2>Rubric Questions</h2>
-    <div>
-        Total @state.RubricQuestions.Count()
-    </div>
-    <div>
-        Selected @state.SelectedRubricQuestions.Count()
-    </div>
+    <QuestionSummary />
 }
 
+    <p>
+        Welcome to the Interview Rubric generator
+    </p>
+
 @functions {
+// TODO: Work out how to move into Shared
 protected override async Task OnInitAsync()
 {
     if (state.RubricQuestions == null)
     {
         state.RubricQuestions = await Http.GetJsonAsync<RubricQuestion[]>("/api/Question/RubricQuestions");
+        StateHasChanged();
     }
 }
 }

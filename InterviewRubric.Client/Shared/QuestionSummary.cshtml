@@ -1,0 +1,21 @@
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@inject AppState state
+
+@*Move to shared view?*@
+
+<div class="alert alert-secondary mt-6" role="alert">
+    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+    <strong>Question Summary</strong>
+    <div>
+        Total : @state.RubricQuestions.Count()
+    </div>
+    <div>
+        Selected : @state.SelectedRubricQuestions.Count()
+    </div>
+    <div>
+        Time :@state.SelectedRubricQuestions.Sum(r => r.Minutes) minutes
+    </div>
+</div>
+
+
