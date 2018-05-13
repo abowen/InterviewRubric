@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InterviewRubric.Server.Controllers
 {
@@ -28,15 +27,6 @@ namespace InterviewRubric.Server.Controllers
                 Difficulty = (Difficulty)rng.Next(0, 2),
                 Minutes = rng.Next(1, 3)
             });
-        }
-
-        [HttpGet("[action]")]
-        public GenericRubricResponse Save(GenericRubricRequest request)
-        {
-            return new GenericRubricResponse()
-            {
-                SelectedQuestions = request.SelectedQuestions
-            };
         }
     }
 }

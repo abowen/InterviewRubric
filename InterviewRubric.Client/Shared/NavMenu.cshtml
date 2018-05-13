@@ -1,4 +1,8 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@inject AppState state
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="/">Interview Rubric</a>
     <button class="navbar-toggler" onclick=@ToggleNavMenu>
         <span class="navbar-toggler-icon"></span>
@@ -22,6 +26,11 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Build
             </NavLink>
         </li>
+        <li class="nav-item px-3">
+            <button onclick="@Debug">
+                Debug
+            </button>
+        </li>
     </ul>
 </div>
 
@@ -31,5 +40,18 @@
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    void Debug()
+    {
+        if (state.RubricQuestions == null)
+            return;
+
+        Console.WriteLine("** DEBUG **");
+        foreach (var question in state.RubricQuestions)
+        {
+            Console.WriteLine(question);
+        }
+        StateHasChanged();
     }
 }
