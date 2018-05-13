@@ -8,13 +8,56 @@
 
 <QuestionSummary />
 
-<button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
+<form>
+    <div class="form-group">
+        <label for="questionInput">Question</label>
+        <input type="text" class="form-control" id="questionInput" bind=@RubricQuestion.Question />
+        <small id="questionHelp" class="form-text text-muted">Question to ask the interviewee.</small>
+    </div>
+    <div class="form-group">
+        <label for="lowInput">Low Rating</label>
+        <input type="text" class="form-control" id="lowInput" bind=@RubricQuestion.Low />
+        <small id="lowHelp" class="form-text text-muted">Minimum expected answer</small>
+    </div>
+    <div class="form-group">
+        <label for="mediumInput">Medium Rating</label>
+        <input type="text" class="form-control" id="mediumInput" bind=@RubricQuestion.Medium />
+        <small id="mediumHelp" class="form-text text-muted">Ideal answer that they should get to</small>
+    </div>
+    <div class="form-group">
+        <label for="highInput">High Rating</label>
+        <input type="text" class="form-control" id="highInput" bind=@RubricQuestion.High />
+        <small id="highHelp" class="form-text text-muted">If the candidate gets this, they are exceeding their expectations</small>
+    </div>
+    <div class="form-group">
+        <label for="timeInput">Time (minutes)</label>
+        <input type="text" class="form-control" id="timeInput" bind=@RubricQuestion.Minutes />
+        <small id="timehelp" class="form-text text-muted">Expected time you expect them to take to respond</small>
+    </div>
+    <div class="form-group">
+        <label for="difficultyInput">Difficulty</label>
+        <select id="difficultyInput" class="custom-select" bind=RubricQuestion.Difficulty>
+            <option value=@Difficulty.Easy>@Difficulty.Easy</option>
+            <option value=@Difficulty.Medium>@Difficulty.Medium</option>
+            <option value=@Difficulty.Hard>@Difficulty.Hard</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" onclick="@Submit">Submit</button>
+</form>
+
 
 @functions {
-int currentCount = 0;
+    private RubricQuestion RubricQuestion = new RubricQuestion();
 
-void IncrementCount()
-{
-    currentCount++;
+    protected override void OnInit()
+    {
+        state.OnChange += StateHasChanged;
+    }
+
+    void Submit()
+    {
+        state.AddQuestion(RubricQuestion);
+        RubricQuestion = new RubricQuestion();
+    }
 }
-}
+

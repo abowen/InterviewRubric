@@ -30,4 +30,8 @@
     <BlazorGenerate Remove="Shared\QuestionSummary.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <BlazorGenerate Remove="Shared\QuestionList.cshtml" />
+  </ItemGroup>
+
 </Project>

@@ -4,7 +4,7 @@
 @inject HttpClient Http
 @inject AppState state
 
-<h1>List of rubric questions</h1>
+<h1>Interview Builder</h1>
 
 @if (state.RubricQuestions == null)
 {
@@ -14,52 +14,24 @@ else
 {
     <QuestionSummary />
 
-    <p>This component demonstrates fetching data from the server.</p>
+    <p>Select your questions</p>
 
-    <div class="row">
-        <form>
-            <fieldset class="form-group">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Add</th>
-                            <th>Selected</th>
-                            <th>Question</th>
-                            <th>Difficulty</th>
-                            <th>Time</th>
-                            <th>Low</th>
-                            <th>Medium</th>
-                            <th>High</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var question in state.RubricQuestions)
-                        {
-                        <tr>
-                            <td>
-                                <button onclick=@(() => state.AddQuestion(question))>Add</button>
-                                <button onclick=@(() => state.RemoveQuestion(question))>Remove</button>
-                            </td>
-                            <td>@question.Question</td>
-                            <td>@question.Difficulty</td>
-                            <td>@question.Minutes min(s)</td>
-                            <td>@question.Low</td>
-                            <td>@question.Medium</td>
-                            <td>@question.High</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </fieldset>
-        </form>
-    </div>
+    <h2>Selected</h2>
+    <QuestionList Questions=@state.SelectedRubricQuestions
+                  UserActionText="Remove" 
+                  UserAction=@state.UnselectQuestion/>
+
+    <h2>Unselected</h2>
+    <QuestionList Questions=@state.UnselectedRubricQuestions 
+                  UserActionText="Add" 
+                  UserAction=@state.SelectQuestion />
 }
 
 @functions {
-    protected override void OnInit()
-    {
-        state.OnChange += StateHasChanged;
-    }
+protected override void OnInit()
+{
+    state.OnChange += StateHasChanged;
+}
 }
 
 

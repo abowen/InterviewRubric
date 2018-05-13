@@ -1,0 +1,49 @@
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@inject AppState state
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Question</th>
+            <th>Difficulty</th>
+            <th>Time</th>
+            <th>Low</th>
+            <th>Medium</th>
+            <th>High</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Questions)
+        {
+        <tr>
+            <td>
+                <button class="btn btn-outline-primary btn-sm" 
+                        style="width:100px"
+                        onclick=@(() => UserAction(question))>@UserActionText</button>
+            </td>
+            <td>@question.Question</td>
+            <td>@question.Difficulty</td>
+            <td>@question.Minutes min(s)</td>
+            <td>@question.Low</td>
+            <td>@question.Medium</td>
+            <td>@question.High</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@functions {
+    [Parameter] List<RubricQuestion> Questions { get; set; }
+    [Parameter] Action<RubricQuestion> UserAction { get; set; }
+    [Parameter] string UserActionText { get; set; }
+
+    protected override void OnInit()
+    {
+        state.OnChange += StateHasChanged;
+    }
+}
+
+
