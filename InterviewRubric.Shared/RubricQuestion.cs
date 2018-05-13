@@ -8,5 +8,6 @@
         public string High { get; set; }
         public Difficulty Difficulty { get;set; }
         public int Minutes { get; set; }
+        public bool Selected { get; set; }
     }
 }

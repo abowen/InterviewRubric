@@ -32,6 +32,7 @@ else
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Selected</th>
                             <th>Question</th>
                             <th>Difficulty</th>
                             <th>Time</th>
@@ -43,14 +44,15 @@ else
                     <tbody>
                         @foreach (var question in questions)
                         {
-                            <tr>
-                                <td>@question.Question</td>
-                                <td>@question.Difficulty</td>
-                                <td>@question.Minutes min(s)</td>
-                                <td>@question.Low</td>
-                                <td>@question.Medium</td>
-                                <td>@question.High</td>
-                            </tr>
+                        <tr>
+                            <td><input type="checkbox" bind="@question.Selected" /> </td>
+                            <td>@question.Question</td>
+                            <td>@question.Difficulty</td>
+                            <td>@question.Minutes min(s)</td>
+                            <td>@question.Low</td>
+                            <td>@question.Medium</td>
+                            <td>@question.High</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -60,46 +62,46 @@ else
 }
 
 @functions {
-RubricQuestion[] questions;
-GenericRubricResponse response;
+    RubricQuestion[] questions;
+    GenericRubricResponse response;
 
-protected override async Task OnInitAsync()
-{
-    questions = await Http.GetJsonAsync<RubricQuestion[]>("/api/Question/RubricQuestions");
-}
+    protected override async Task OnInitAsync()
+    {
+        questions = await Http.GetJsonAsync<RubricQuestion[]>("/api/Question/RubricQuestions");
+    }
 
-//GenericRubricRequest request = new GenericRubricRequest();
+    //GenericRubricRequest request = new GenericRubricRequest();
 
 
-//async Task Submit()
-//{
-//    request = new GenericRubricRequest()
-//    {
+    //async Task Submit()
+    //{
+    //    request = new GenericRubricRequest()
+    //    {
 
-//        SelectedQuestions = new RubricQuestion[]
-//        {
+    //        SelectedQuestions = new RubricQuestion[]
+    //        {
 
-//            new RubricQuestion()
-//            {
-//                Difficulty = Difficulty.Hard,
-//                Question = "Hi",
-//                Minutes = 1,
-//            }
-//        }
+    //            new RubricQuestion()
+    //            {
+    //                Difficulty = Difficulty.Hard,
+    //                Question = "Hi",
+    //                Minutes = 1,
+    //            }
+    //        }
 
-//    };
+    //    };
 
-//    response = await Http.PutJsonAsync<GenericRubricResponse>($"api/Question/Save",
-//    new
-//    {
-//        request
-//    });
+    //    response = await Http.PutJsonAsync<GenericRubricResponse>($"api/Question/Save",
+    //    new
+    //    {
+    //        request
+    //    });
 
-//    if (response.SelectedQuestions != null)
-//    {
-//        questions = response.SelectedQuestions;
-//    }
-//}
+    //    if (response.SelectedQuestions != null)
+    //    {
+    //        questions = response.SelectedQuestions;
+    //    }
+    //}
 }
 
 
