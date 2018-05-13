@@ -1,0 +1,103 @@
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@page "/questions"
+@inject HttpClient Http
+@inject AppState state
+
+<h1>List of rubric questions</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (questions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        @*<ErrorMessages Errors=@response.SelectedQuestions />*@
+        @if (response != null)
+        {
+            <div>
+                Count @state.SelectedRubricQuestions.Count()
+            </div>
+            <div>
+                Count @response.SelectedQuestions.Count()
+            </div>
+        }
+        <form>
+            <fieldset class="form-group">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Difficulty</th>
+                            <th>Time</th>
+                            <th>Low</th>
+                            <th>Medium</th>
+                            <th>High</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var question in questions)
+                        {
+                            <tr>
+                                <td>@question.Question</td>
+                                <td>@question.Difficulty</td>
+                                <td>@question.Minutes min(s)</td>
+                                <td>@question.Low</td>
+                                <td>@question.Medium</td>
+                                <td>@question.High</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+}
+
+@functions {
+RubricQuestion[] questions;
+GenericRubricResponse response;
+
+protected override async Task OnInitAsync()
+{
+    questions = await Http.GetJsonAsync<RubricQuestion[]>("/api/Question/RubricQuestions");
+}
+
+//GenericRubricRequest request = new GenericRubricRequest();
+
+
+//async Task Submit()
+//{
+//    request = new GenericRubricRequest()
+//    {
+
+//        SelectedQuestions = new RubricQuestion[]
+//        {
+
+//            new RubricQuestion()
+//            {
+//                Difficulty = Difficulty.Hard,
+//                Question = "Hi",
+//                Minutes = 1,
+//            }
+//        }
+
+//    };
+
+//    response = await Http.PutJsonAsync<GenericRubricResponse>($"api/Question/Save",
+//    new
+//    {
+//        request
+//    });
+
+//    if (response.SelectedQuestions != null)
+//    {
+//        questions = response.SelectedQuestions;
+//    }
+//}
+}
+
+
