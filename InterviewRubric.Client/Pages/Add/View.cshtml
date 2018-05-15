@@ -1,8 +1,10 @@
 ﻿@using InterviewRubric.Shared
+@using InterviewRubric.Client.Pages.Add
 @using System.Linq
 @page "/add"
 @inject HttpClient Http
 @inject AppState state
+@inject ViewModel viewModel
 
 <h1>Add Question</h1>
 
@@ -11,53 +13,45 @@
 <form>
     <div class="form-group">
         <label for="questionInput">Question</label>
-        <input type="text" class="form-control" id="questionInput" bind=@RubricQuestion.Question />
+        <input type="text" class="form-control" id="questionInput" bind=@viewModel.RubricQuestion.Question />
         <small id="questionHelp" class="form-text text-muted">Question to ask the interviewee.</small>
     </div>
     <div class="form-group">
         <label for="lowInput">Low Rating</label>
-        <input type="text" class="form-control" id="lowInput" bind=@RubricQuestion.Low />
+        <input type="text" class="form-control" id="lowInput" bind=@viewModel.RubricQuestion.Low />
         <small id="lowHelp" class="form-text text-muted">Minimum expected answer</small>
     </div>
     <div class="form-group">
         <label for="mediumInput">Medium Rating</label>
-        <input type="text" class="form-control" id="mediumInput" bind=@RubricQuestion.Medium />
+        <input type="text" class="form-control" id="mediumInput" bind=@viewModel.RubricQuestion.Medium />
         <small id="mediumHelp" class="form-text text-muted">Ideal answer that they should get to</small>
     </div>
     <div class="form-group">
         <label for="highInput">High Rating</label>
-        <input type="text" class="form-control" id="highInput" bind=@RubricQuestion.High />
+        <input type="text" class="form-control" id="highInput" bind=@viewModel.RubricQuestion.High />
         <small id="highHelp" class="form-text text-muted">If the candidate gets this, they are exceeding their expectations</small>
     </div>
     <div class="form-group">
         <label for="timeInput">Time (minutes)</label>
-        <input type="text" class="form-control" id="timeInput" bind=@RubricQuestion.Minutes />
+        <input type="text" class="form-control" id="timeInput" bind=@viewModel.RubricQuestion.Minutes />
         <small id="timehelp" class="form-text text-muted">Expected time you expect them to take to respond</small>
     </div>
     <div class="form-group">
         <label for="difficultyInput">Difficulty</label>
-        <select id="difficultyInput" class="custom-select" bind=RubricQuestion.Difficulty>
+        <select id="difficultyInput" class="custom-select" bind=@viewModel.RubricQuestion.Difficulty>
             <option value=@QuestionDifficulty.Easy>@QuestionDifficulty.Easy</option>
             <option value=@QuestionDifficulty.Medium>@QuestionDifficulty.Medium</option>
             <option value=@QuestionDifficulty.Hard>@QuestionDifficulty.Hard</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary" onclick="@Submit">Submit</button>
+    <button type="submit" class="btn btn-primary" onclick="@viewModel.Submit">Submit</button>
 </form>
 
 
 @functions {
-    private RubricQuestion RubricQuestion = new RubricQuestion();
-
     protected override void OnInit()
     {
         state.OnChange += StateHasChanged;
-    }
-
-    void Submit()
-    {
-        state.AddQuestion(RubricQuestion);
-        RubricQuestion = new RubricQuestion();
     }
 }
 
