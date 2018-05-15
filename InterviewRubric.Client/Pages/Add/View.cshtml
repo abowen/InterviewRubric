@@ -1,4 +1,5 @@
 ﻿@using InterviewRubric.Shared
+@using InterviewRubric.Shared.Enums
 @using InterviewRubric.Client.Pages.Add
 @using System.Linq
 @page "/add"
@@ -39,9 +40,10 @@
     <div class="form-group">
         <label for="difficultyInput">Difficulty</label>
         <select id="difficultyInput" class="custom-select" bind=@viewModel.RubricQuestion.Difficulty>
-            <option value=@QuestionDifficulty.Easy>@QuestionDifficulty.Easy</option>
-            <option value=@QuestionDifficulty.Medium>@QuestionDifficulty.Medium</option>
-            <option value=@QuestionDifficulty.Hard>@QuestionDifficulty.Hard</option>
+            @foreach (var difficulty in Enum<QuestionDifficulty>.GetEnums())
+        {
+            <option value=@difficulty>@difficulty</option>
+        }
         </select>
     </div>
     <button type="submit" class="btn btn-primary" onclick="@viewModel.Submit">Submit</button>
