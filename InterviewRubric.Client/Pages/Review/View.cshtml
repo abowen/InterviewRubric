@@ -1,0 +1,34 @@
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@page "/review"
+@inject HttpClient Http
+@inject AppState state
+
+<h1>Review Candidate</h1>
+
+<p>Rate the candidates answers against the rubric</p>
+
+@if (state.RubricQuestions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <QuestionSummary />
+
+    <p>Select your questions</p>
+
+    <h2>Selected</h2>
+    <QuestionList Questions=@state.SelectedRubricQuestions
+                  UserActionText="Remove" 
+                  UserAction=@state.UnselectQuestion/>
+}
+
+@functions {
+protected override void OnInit()
+{
+    state.OnChange += StateHasChanged;
+}
+}
+
+

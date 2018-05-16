@@ -72,8 +72,6 @@ void FilterDifficulty(QuestionDifficulty? difficulty = null)
     {
         FilteredQuestions = Questions.Where(fq => fq.Difficulty == difficulty).ToList();
     }
-
-    //StateHasChanged();
 }
 }
 

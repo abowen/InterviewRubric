@@ -1,0 +1,34 @@
+﻿@using InterviewRubric.Shared
+@using System.Linq
+@page "/build"
+@inject HttpClient Http
+@inject AppState state
+
+<h1>Build Rubric</h1>
+
+<p>Select the questions to be used for your interview rubric</p>
+
+@if (state.RubricQuestions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <QuestionSummary />
+
+    <p>Select your questions</p>
+
+    <h2>Unselected</h2>
+    <QuestionList Questions=@state.UnselectedRubricQuestions 
+                  UserActionText="Add" 
+                  UserAction=@state.SelectQuestion />
+}
+
+@functions {
+protected override void OnInit()
+{
+    state.OnChange += StateHasChanged;
+}
+}
+
+

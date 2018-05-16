@@ -1,10 +1,12 @@
 ﻿@using InterviewRubric.Shared
 @using System.Linq
-@page "/questions"
+@page "/interview"
 @inject HttpClient Http
 @inject AppState state
 
-<h1>Interview Builder</h1>
+<h1>Interview Questions</h1>
+
+<p>List of questions to ask during the interview, without expected answers</p>
 
 @if (state.RubricQuestions == null)
 {
@@ -20,11 +22,6 @@ else
     <QuestionList Questions=@state.SelectedRubricQuestions
                   UserActionText="Remove" 
                   UserAction=@state.UnselectQuestion/>
-
-    <h2>Unselected</h2>
-    <QuestionList Questions=@state.UnselectedRubricQuestions 
-                  UserActionText="Add" 
-                  UserAction=@state.SelectQuestion />
 }
 
 @functions {
