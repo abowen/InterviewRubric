@@ -20,8 +20,12 @@ else
 
     <h2>Selected</h2>
     <QuestionList Questions=@state.SelectedRubricQuestions
-                  UserActionText="Remove" 
-                  UserAction=@state.UnselectQuestion/>
+                  UserActions=@{ new[] {
+                                    new UserAction { Text = "Unselect", Action = state.UnselectQuestion },
+                                    new UserAction { Text = "▲", Action = state.MoveUpQuestion },
+                                    new UserAction { Text = "▼", Action = state.MoveDownQuestion }
+                                }
+                  } />
 }
 
 @functions {

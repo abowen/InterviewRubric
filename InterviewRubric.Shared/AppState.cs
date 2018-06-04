@@ -56,5 +56,27 @@ namespace InterviewRubric.Shared
                 NotifyStateChanged();
             }
         }
+
+        public void MoveUpQuestion(RubricQuestion question)
+        {
+            var index = SelectedRubricQuestions.IndexOf(question);
+            if (index > 0)
+            {
+                SelectedRubricQuestions.Remove(question);
+                SelectedRubricQuestions.Insert(index-1, question);
+                NotifyStateChanged();
+            }
+        }
+
+        public void MoveDownQuestion(RubricQuestion question)
+        {
+            var index = SelectedRubricQuestions.IndexOf(question);
+            if (index > -1 && index < (SelectedRubricQuestions.Count-1))
+            {
+                SelectedRubricQuestions.Remove(question);
+                SelectedRubricQuestions.Insert(index + 1, question);
+                NotifyStateChanged();
+            }
+        }
     }
 }

@@ -27,52 +27,53 @@
     <tbody>
         @foreach (var question in FilteredQuestions)
         {
-            <tr>
+        <tr>
+            @foreach (var userAction in UserActions)
+            {
                 <td>
                     <button class="btn btn-outline-primary btn-sm"
                             style="width:100px"
-                            onclick=@(() => UserAction(question))>
-                        @UserActionText
+                            onclick=@(() => userAction.Action(question))>
+                        @userAction.Text
                     </button>
                 </td>
-                <td>@question.Question</td>
-                <td>@question.Difficulty</td>
-                <td>@question.Category</td>
-                <td>@question.Type</td>
-                <td>@question.Minutes min(s)</td>
-                <td>@question.Low</td>
-                <td>@question.Medium</td>
-                <td>@question.High</td>
-            </tr>
+            }
+            <td>@question.Question</td>
+            <td>@question.Difficulty</td>
+            <td>@question.Category</td>
+            <td>@question.Type</td>
+            <td>@question.Minutes min(s)</td>
+            <td>@question.Low</td>
+            <td>@question.Medium</td>
+            <td>@question.High</td>
+        </tr>
         }
     </tbody>
 </table>
 
 
 @functions {
-[Parameter] List<RubricQuestion> Questions { get; set; }
-[Parameter] Action<RubricQuestion> UserAction { get; set; }
-[Parameter] string UserActionText { get; set; }
+    [Parameter] List<RubricQuestion> Questions { get; set; }
+    [Parameter] IEnumerable<UserAction> UserActions { get; set; }
 
-List<RubricQuestion> FilteredQuestions;
+    List<RubricQuestion> FilteredQuestions;
 
-protected override void OnInit()
-{
-    state.OnChange += StateHasChanged;
-    FilteredQuestions = Questions;
-}
-
-void FilterDifficulty(QuestionDifficulty? difficulty = null)
-{
-    if (difficulty == null)
+    protected override void OnInit()
     {
+        state.OnChange += StateHasChanged;
         FilteredQuestions = Questions;
     }
-    else
+
+    void FilterDifficulty(QuestionDifficulty? difficulty = null)
     {
-        FilteredQuestions = Questions.Where(fq => fq.Difficulty == difficulty).ToList();
+        if (difficulty == null)
+        {
+            FilteredQuestions = Questions;
+        }
+        else
+        {
+            FilteredQuestions = Questions.Where(fq => fq.Difficulty == difficulty).ToList();
+        }
     }
 }
-}
-
 
