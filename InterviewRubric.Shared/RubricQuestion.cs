@@ -1,7 +1,11 @@
-﻿namespace InterviewRubric.Shared
+﻿using System;
+
+namespace InterviewRubric.Shared
 {
     public class RubricQuestion
     {
+        public Guid Id { get; set; }
+
         // TODO: Move strings to Markdown
         public string Question { get; set; }
         public QuestionCategory Category { get; set; }

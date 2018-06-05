@@ -46,7 +46,7 @@
         }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary" onclick="@viewModel.Submit">Submit</button>
+    <button type="submit" class="btn btn-primary" onclick="@AddQuestion">Submit</button>
 </form>
 
 
@@ -54,6 +54,12 @@
     protected override void OnInit()
     {
         state.OnChange += StateHasChanged;
+    }
+
+    private async Task AddQuestion()
+    {
+        await Http.SendJsonAsync(HttpMethod.Post, "/api/Question/Add", viewModel.RubricQuestion);
+        viewModel.Submit();
     }
 }
 

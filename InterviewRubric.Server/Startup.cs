@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Mime;
+using Microsoft.EntityFrameworkCore;
+using InterviewRubric.Server.Data;
 
 namespace InterviewRubric.Server
 {
@@ -31,6 +33,9 @@ namespace InterviewRubric.Server
                     WasmMediaTypeNames.Application.Wasm,
                 });
             });
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=InterviewRubric;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<RubricContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
